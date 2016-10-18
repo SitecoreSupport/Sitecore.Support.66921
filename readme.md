@@ -2,7 +2,8 @@
 Encodes paths to included scripts when using ASP.NET Web Forms
 
 ## Description
-TODO: provide more details here.
+This patch encodes paths to included scripts when using ASP.NET Web Forms.
+It makes forms W3C-compatible.
 
 ## License  
 This patch is licensed under the [Sitecore Corporation A/S License for GitHub](https://github.com/sitecoresupport/Sitecore.Support.66921/blob/master/LICENSE).  
