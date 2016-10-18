@@ -2,7 +2,7 @@
 Encodes paths to included scripts when using ASP.NET Web Forms
 
 ## Description
-This patch encodes paths to included scripts when using ASP.NET Web Forms.
+This patch encodes paths to included scripts when using ASP.NET Web Forms.<br/>
 It makes forms W3C-compatible.
 
 ## License  
