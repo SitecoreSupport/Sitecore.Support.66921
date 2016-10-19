@@ -1,10 +1,9 @@
-﻿using Sitecore.Form.Core.Configuration;
-using Sitecore.Form.Core.Utility;
+﻿using Sitecore.Form.Core.Ascx.Controls;
 using Sitecore.Form.Web.UI.Controls;
 using Sitecore.WFFM.Abstractions.Dependencies;
+using Sitecore.WFFM.Abstractions.Shared;
 using System;
 using System.Reflection;
-using System.Web.UI;
 
 namespace Sitecore.Support.Form.Web.UI.Controls
 {
@@ -33,8 +32,9 @@ namespace Sitecore.Support.Form.Web.UI.Controls
             this.Page.ClientScript.RegisterClientScriptInclude("sc.webform", "/sitecore%20modules/web/web%20forms%20for%20marketers/scripts/sc.webform.js?v=17072012");
             if (base.IsAnalyticsEnabled && !base.FastPreview)
             {
-                DependenciesManager.AnalyticsTracker.BasePageTime = base.RenderedTime;
-                this.EventCounter.Value = (DependenciesManager.AnalyticsTracker.EventCounter + 1).ToString();
+                IAnalyticsTracker analyticsTracker = (IAnalyticsTracker)this.GetType().BaseType.BaseType.BaseType.BaseType.GetField("analyticsTracker", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).GetValue(this);
+                analyticsTracker.GetType().GetProperty("BasePageTime", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).SetValue(analyticsTracker, base.RenderedTime);
+                base.EventCounter.Value = ((int)analyticsTracker.GetType().GetProperty("EventCounter", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static).GetValue(analyticsTracker) + 1).ToString();
             }
             this.OnAddInitOnClient();
             this.Page.PreRenderComplete += new EventHandler(base.OnPreRenderComplete);
